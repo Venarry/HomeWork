@@ -11,24 +11,18 @@ public class DOTwinTextChanger : MonoBehaviour
     [SerializeField] private Text _text;
     [SerializeField] private float _duration = 2f;
 
-    private Tween _tween;
-
     private void Start()
     {
-        _tween = _text.DOText(FirstText, _duration);
-        _tween.onKill += OnFirstKill;
+        _text.DOText(FirstText, _duration).OnComplete(ShowSecondText);
     }
 
-    private void OnFirstKill()
+    private void ShowSecondText()
     {
-        _tween.onKill -= OnFirstKill;
-        _tween = _text.DOText(SecondText, _duration).SetRelative();
-        _tween.onKill += OnSecondKill;
+        _text.DOText(SecondText, _duration).SetRelative().OnComplete(ShowThirdText);
     }
 
-    private void OnSecondKill()
+    private void ShowThirdText()
     {
-        _tween.onKill -= OnSecondKill;
         _text.DOText(ThirdText, _duration, true, ScrambleMode.All);
     }
 }
