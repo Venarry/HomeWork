@@ -14,7 +14,15 @@ public class Counter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _activeCoroutine = StartCoroutine(Counting());
+            if(_activeCoroutine != null)
+            {
+                StopCoroutine(_activeCoroutine);
+                _activeCoroutine = null;
+            }
+            else
+            {
+                _activeCoroutine = StartCoroutine(Counting());
+            }
         }
     }
 
@@ -24,6 +32,7 @@ public class Counter : MonoBehaviour
         {
             yield return _waitForSeconds;
             _count += CounterStep;
+            Debug.Log(_count);
         }
     }
 }
