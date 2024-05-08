@@ -1,0 +1,16 @@
+{
+    "name": "CubeExplosion",
+    "rootNamespace": "CubeExplosion",
+    "references": [
+        "GUID:e201b184112dd554db7fc12e350542e9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
