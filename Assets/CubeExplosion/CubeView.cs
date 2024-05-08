@@ -23,7 +23,7 @@ namespace CubeExplosion
             GetComponent<MeshRenderer>().material.color = color;
         }
 
-        public void Explose()
+        public void Explode()
         {
             int minCubeCount = 2;
             int maxCubeCount = 6;
@@ -33,21 +33,38 @@ namespace CubeExplosion
             if (MyMath.GetRandomResult(_separationChance))
             {
                 float newSeparationChance = _separationChance / 2;
+                float minOffset = -0.2f;
+                float maxOffset = 0.2f;
 
                 for (int i = 0; i < spawnedCubeCount; i++)
                 {
-                    float minOffset = -0.2f;
-                    float maxOffset = 0.2f;
-
                     float xOffset = Random.Range(minOffset, maxOffset);
                     float yOffset = Random.Range(0, maxOffset);
 
                     Vector3 spawnPoint = new(transform.position.x + xOffset, transform.position.y + yOffset, transform.position.z);
                     CubeView cube = _cubeFactory.Create(spawnPoint, transform.localScale.x / 2, newSeparationChance);
 
-                    float explosionForceMultipy = 600;
                     float explosionRadius = 2;
-                    cube.AddExplosionForce(transform.localScale.x * explosionForceMultipy, transform.position, explosionRadius);
+                    float baseExplodeStrength = 600;
+                    cube.AddExplosionForce(transform.localScale.x * baseExplodeStrength, transform.position, explosionRadius);
+                }
+            }
+            else
+            {
+                float baseExplodeRadius = 10f;
+                float baseExplodeStrength = 1000;
+
+                float targetExplodeRadius = baseExplodeRadius / transform.localScale.x;
+                float targetExplodeStrength = baseExplodeStrength / transform.localScale.x;
+
+                Collider[] colliders = Physics.OverlapSphere(transform.position, targetExplodeRadius);
+
+                foreach (Collider collider in colliders)
+                {
+                    if(collider.TryGetComponent(out CubeView cube))
+                    {
+                        cube.AddExplosionForce(targetExplodeStrength, transform.position, targetExplodeRadius);
+                    }
                 }
             }
 

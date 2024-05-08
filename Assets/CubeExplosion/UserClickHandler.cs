@@ -16,7 +16,7 @@ namespace CubeExplosion
                 {
                     if (raycastHit.collider.TryGetComponent(out CubeView cube))
                     {
-                        cube.Explose();
+                        cube.Explode();
                     }
                 }
             }

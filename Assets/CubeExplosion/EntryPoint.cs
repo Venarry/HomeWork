@@ -6,6 +6,8 @@ namespace CubeExplosion
     {
         private void Awake()
         {
+            Time.timeScale = 0.5f;
+
             float xStartPoint = -15;
             float xEndPoint = 15;
             float ySpawnHeigh = 10;
