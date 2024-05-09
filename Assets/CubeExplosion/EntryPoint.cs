@@ -6,8 +6,6 @@ namespace CubeExplosion
     {
         private void Awake()
         {
-            Time.timeScale = 0.5f;
-
             float xStartPoint = -15;
             float xEndPoint = 15;
             float ySpawnHeigh = 10;
@@ -20,7 +18,7 @@ namespace CubeExplosion
 
             for (int i = 0; i < startCubeCount; i++)
             {
-                Vector3 spawnPoint = new(Random.Range(xStartPoint, xEndPoint), ySpawnHeigh, 0);
+                Vector3 spawnPoint = new(Random.Range(xStartPoint, xEndPoint), 0, Random.Range(xStartPoint, xEndPoint));
                 cubeFactory.Create(spawnPoint, startCubeScale, startSeparationChance);
             }
         }

@@ -8,13 +8,15 @@ namespace CubeExplosion
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            bool isLeftMouseButtonPressed = Input.GetMouseButtonDown(button: 0);
+
+            if (isLeftMouseButtonPressed == true)
             {
                 Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
                 if (Physics.Raycast(ray, out RaycastHit raycastHit))
                 {
-                    if (raycastHit.collider.TryGetComponent(out CubeView cube))
+                    if (raycastHit.collider.TryGetComponent(out Cube cube))
                     {
                         cube.Explode();
                     }

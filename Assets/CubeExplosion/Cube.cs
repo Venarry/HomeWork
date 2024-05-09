@@ -3,7 +3,8 @@ using UnityEngine;
 namespace CubeExplosion
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class CubeView : MonoBehaviour
+    [RequireComponent(typeof(MeshRenderer))]
+    public class Cube : MonoBehaviour
     {
         private CubeFactory _cubeFactory;
         private Rigidbody _rigidbody;
@@ -42,7 +43,7 @@ namespace CubeExplosion
                     float yOffset = Random.Range(0, maxOffset);
 
                     Vector3 spawnPoint = new(transform.position.x + xOffset, transform.position.y + yOffset, transform.position.z);
-                    CubeView cube = _cubeFactory.Create(spawnPoint, transform.localScale.x / 2, newSeparationChance);
+                    Cube cube = _cubeFactory.Create(spawnPoint, transform.localScale.x / 2, newSeparationChance);
 
                     float explosionRadius = 2;
                     float baseExplodeStrength = 600;
@@ -61,7 +62,7 @@ namespace CubeExplosion
 
                 foreach (Collider collider in colliders)
                 {
-                    if(collider.TryGetComponent(out CubeView cube))
+                    if(collider.TryGetComponent(out Cube cube))
                     {
                         cube.AddExplosionForce(targetExplodeStrength, transform.position, targetExplodeRadius);
                     }
