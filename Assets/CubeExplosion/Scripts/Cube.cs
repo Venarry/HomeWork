@@ -6,7 +6,7 @@ namespace CubeExplosion
     [RequireComponent(typeof(MeshRenderer))]
     public class Cube : MonoBehaviour
     {
-        private CubeFactory _cubeFactory;
+        private ICubeFactory _cubeFactory;
         private Rigidbody _rigidbody;
         private float _separationChance;
 
@@ -15,7 +15,7 @@ namespace CubeExplosion
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        public void Init(CubeFactory cubeFactory, float scale, float separationChance, Color color)
+        public void Init(ICubeFactory cubeFactory, float scale, float separationChance, Color color)
         {
             _cubeFactory = cubeFactory;
             transform.localScale = new Vector3(scale, scale, scale);
@@ -33,7 +33,8 @@ namespace CubeExplosion
 
             if (MyMath.GetRandomResult(_separationChance))
             {
-                float newSeparationChance = _separationChance / 2;
+                int separationReduceMultiplier = 2;
+                float newSeparationChance = _separationChance / separationReduceMultiplier;
                 float minOffset = -0.2f;
                 float maxOffset = 0.2f;
 
@@ -43,7 +44,10 @@ namespace CubeExplosion
                     float yOffset = Random.Range(0, maxOffset);
 
                     Vector3 spawnPoint = new(transform.position.x + xOffset, transform.position.y + yOffset, transform.position.z);
-                    Cube cube = _cubeFactory.Create(spawnPoint, transform.localScale.x / 2, newSeparationChance);
+
+                    int cubeScaleReduceMultiplayer = 2;
+
+                    Cube cube = _cubeFactory.Create(spawnPoint, transform.localScale.x / cubeScaleReduceMultiplayer, newSeparationChance);
 
                     float explosionRadius = 2;
                     float baseExplodeStrength = 600;

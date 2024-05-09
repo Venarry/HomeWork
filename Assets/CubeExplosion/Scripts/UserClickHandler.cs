@@ -10,7 +10,7 @@ namespace CubeExplosion
         {
             bool isLeftMouseButtonPressed = Input.GetMouseButtonDown(button: 0);
 
-            if (isLeftMouseButtonPressed == true)
+            if (isLeftMouseButtonPressed)
             {
                 Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 

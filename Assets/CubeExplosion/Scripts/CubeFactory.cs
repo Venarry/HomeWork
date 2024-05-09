@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CubeExplosion
 {
-    public class CubeFactory
+    public class CubeFactory : ICubeFactory
     {
         private readonly Cube _prefab = Resources.Load<Cube>(PrefabsPath.ExplosionCube);
 

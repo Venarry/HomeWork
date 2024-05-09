@@ -6,9 +6,9 @@ namespace CubeExplosion
     {
         private void Awake()
         {
-            float xStartPoint = -15;
-            float xEndPoint = 15;
-            float ySpawnHeigh = 10;
+            float startWidth = -15;
+            float endWidth = 15;
+            float spawnHeigh = 0;
 
             CubeFactory cubeFactory = new();
 
@@ -18,7 +18,7 @@ namespace CubeExplosion
 
             for (int i = 0; i < startCubeCount; i++)
             {
-                Vector3 spawnPoint = new(Random.Range(xStartPoint, xEndPoint), 0, Random.Range(xStartPoint, xEndPoint));
+                Vector3 spawnPoint = new(Random.Range(startWidth, endWidth), spawnHeigh, Random.Range(startWidth, endWidth));
                 cubeFactory.Create(spawnPoint, startCubeScale, startSeparationChance);
             }
         }
