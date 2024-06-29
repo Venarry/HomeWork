@@ -8,9 +8,7 @@ namespace RainOfCube
 
         public Bomb Create(Vector3 position)
         {
-            Bomb bomb = CreatePoolObject(position);
-
-            return bomb;
+            return CreatePoolObject(position);
         }
 
         protected override Bomb GetPrefab() => _prefab;

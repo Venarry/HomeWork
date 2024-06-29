@@ -8,9 +8,7 @@ namespace RainOfCube
 
         public Cube Create(Vector3 spawnPoint)
         {
-            Cube cube = CreatePoolObject(spawnPoint);
-
-            return cube;
+            return CreatePoolObject(spawnPoint);
         }
 
         protected override Cube GetPrefab() =>
