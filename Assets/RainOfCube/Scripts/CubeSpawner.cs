@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,11 +7,14 @@ namespace RainOfCube
     public class CubeSpawner : MonoBehaviour
     {
         [SerializeField] private Transform _startPoint;
+
         private float _spawnRange;
         private float _spawnDelay;
         private WaitForSeconds _waitForSeconds;
         private Coroutine _activeSpawner;
         private CubeFactory _cubeFactory;
+
+        public event Action<Cube> Spawned;
 
         public void Init(CubeFactory cubeFactory, float spawnRange, float spawnDelay)
         {
@@ -42,11 +46,12 @@ namespace RainOfCube
         {
             while (true)
             {
-                float spawnPositionX = Random.Range(-_spawnRange, _spawnRange);
-                float spawnPositionZ = Random.Range(-_spawnRange, _spawnRange);
+                float spawnPositionX = UnityEngine.Random.Range(-_spawnRange, _spawnRange);
+                float spawnPositionZ = UnityEngine.Random.Range(-_spawnRange, _spawnRange);
 
                 Vector3 spawnPoint = new(spawnPositionX, _startPoint.position.y, spawnPositionZ);
-                _cubeFactory.Create(spawnPoint);
+                Cube cube = _cubeFactory.Create(spawnPoint);
+                Spawned?.Invoke(cube);
 
                 yield return _waitForSeconds;
             }
